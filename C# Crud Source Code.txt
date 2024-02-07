@@ -1,0 +1,80 @@
+
+
+   SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=userdb;Integrated Security=True");
+
+
+
+
+   Insert Code
+
+
+    con.Open();
+            SqlCommand cmd = new SqlCommand("insert into employee(employeeid,employeename,email,address) values(@employeeid,@employeename,@email,@address)", con);
+            cmd.Parameters.AddWithValue("@EmployeeID", int.Parse(textBox1.Text));
+            cmd.Parameters.AddWithValue("@EmployeeName", textBox2.Text);
+            cmd.Parameters.AddWithValue("@Email", textBox3.Text);
+            cmd.Parameters.AddWithValue("@Address", textBox4.Text);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            display();
+
+
+
+
+
+    Display Code
+
+
+    SqlCommand cmd = new SqlCommand("select * from employee", con);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+
+
+
+
+      Update Code
+
+
+      con.Open();
+            SqlCommand cmd = new SqlCommand("update employee set employeename=@employeename,email=@email,address=@address where employeeid=@employeeid", con);
+            cmd.Parameters.AddWithValue("@EmployeeID", int.Parse(textBox1.Text));
+            cmd.Parameters.AddWithValue("@EmployeeName", textBox2.Text);
+            cmd.Parameters.AddWithValue("@Email", textBox3.Text);
+            cmd.Parameters.AddWithValue("@Address", textBox4.Text);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            display();
+            MessageBox.Show("Record Updated Successfully");
+
+
+
+
+       Delete Code
+
+        con.Open();
+            SqlCommand cmd = new SqlCommand("delete employee where employeeid=@employeeid", con);
+            cmd.Parameters.AddWithValue("@EmployeeID", int.Parse(textBox1.Text));
+            
+            cmd.ExecuteNonQuery();
+            con.Close();
+            display();
+            MessageBox.Show("Record Deleted Successfully");
+
+
+
+        New Code
+
+
+        textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+
+
+   
